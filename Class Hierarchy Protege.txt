@@ -1,0 +1,16 @@
+Investment
+	Principal
+	Rate
+		AnnualRate
+	Time
+	Compounding
+	Formula
+		CompoundInterestFormula
+	Hint
+		PrincipalHint
+		RateHint
+		TimeHint
+		CompoundingHint
+	Amount
+
+	

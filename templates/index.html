@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ITS – Intelligent Tutoring System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(90deg,#4b6cb7,#182848);
+            color:white;
+            padding:20px;
+            font-size:28px;
+        }
+        .container {
+            background:white;
+            padding:20px;
+            margin:20px auto;
+            max-width:650px;
+            border-radius:10px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+            text-align:left;
+        }
+        input {
+            padding:10px;
+            margin:5px;
+            width:90%;
+            border-radius:5px;
+            border:1px solid #ccc;
+            font-size:16px;
+        }
+        button {
+            padding:10px 15px;
+            margin:5px;
+            border:none;
+            border-radius:5px;
+            background:#4b6cb7;
+            color:white;
+            cursor:pointer;
+            font-size:16px;
+        }
+        button:hover { background:#182848; }
+        .output-box {
+            background:#e6f0ff;
+            padding:10px;
+            margin-top:10px;
+            border-radius:5px;
+            white-space: pre-wrap;
+        }
+        .correct { color: green; font-weight: bold; }
+        .incorrect { color: red; font-weight: bold; }
+        hr { border: 0; border-top: 1px solid #ccc; margin: 10px 0; }
+        .section-title { font-weight:bold; margin-top:10px; }
+    </style>
+</head>
+<body>
+
+<header>ITS – Intelligent Tutoring System</header>
+
+<div class="container">
+    <h2>Compound Interest Calculator</h2>
+    <label for="principal">Principal (£):</label>
+    <input id="principal" type="number" placeholder="Principal (£)">
+    <label for="rate">Interest Rate (%):</label>
+    <input id="rate" type="number" placeholder="Interest Rate (%)">
+    <label for="time">Time (years):</label>
+    <input id="time" type="number" placeholder="Time (years)">
+    <label for="n">Compounding per year:</label>
+    <input id="n" type="number" placeholder="Compounding per year">
+    <button onclick="calculate()">Calculate</button>
+    <div id="calcResult" class="output-box"></div>
+</div>
+
+<div class="container">
+    <h2>Dynamic Quiz</h2>
+    <div id="quizQuestion" class="output-box"></div>
+    <input id="quizAnswer" type="number" placeholder="Enter answer...">
+    <button onclick="checkQuiz()">Check Answer</button>
+    <button onclick="newQuiz()">New Question</button>
+    <div id="quizFeedback" class="output-box"></div>
+    <div id="quizSteps" class="output-box"></div>
+    <div id="quizHints" class="output-box"></div>
+    <div id="quizScore" class="output-box">Score: 0</div>
+</div>
+
+<script>
+let quizData = {};
+let score = 0;
+
+// ---------- Calculator ----------
+function calculate(){
+    let data = {
+        principal: document.getElementById("principal").value,
+        rate: document.getElementById("rate").value,
+        time: document.getElementById("time").value,
+        n: document.getElementById("n").value
+    };
+    fetch("/calculate", {
+        method:"POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(res => {
+        if(res.error){
+            document.getElementById("calcResult").innerText = res.error;
+            return;
+        }
+        let stepsText = Object.values(res.steps).join("\n");
+        let hintsText = Object.entries(res.hints).map(([k,v])=>`${k}: ${v}`).join("\n");
+        document.getElementById("calcResult").innerText = 
+            `Final Amount: £${res.amount}\n\nStep-by-Step Calculation:\n${stepsText}\n\nHints:\n${hintsText}`;
+    });
+}
+
+// ---------- Quiz ----------
+function newQuiz(){
+    fetch("/quiz")
+    .then(response => response.json())
+    .then(res => {
+        quizData = res;
+        document.getElementById("quizQuestion").innerText = res.question;
+        document.getElementById("quizAnswer").value = "";
+        document.getElementById("quizFeedback").innerText = "";
+        document.getElementById("quizSteps").innerText = "";
+        document.getElementById("quizHints").innerText = "";
+    });
+}
+
+function checkQuiz(){
+    let user = parseFloat(document.getElementById("quizAnswer").value);
+    if(isNaN(user)){
+        document.getElementById("quizFeedback").innerText = "Please enter a number.";
+        return;
+    }
+
+    let feedbackBox = document.getElementById("quizFeedback");
+    if(Math.abs(user - quizData.answer) < 0.01){
+        feedbackBox.innerHTML = "<span class='correct'>Correct!</span>";
+        score += 1;
+    } else {
+        feedbackBox.innerHTML = `<span class='incorrect'>Incorrect.</span> Correct Answer: £${quizData.answer}`;
+    }
+
+    let stepsText = Object.values(quizData.steps).join("\n");
+    let hintsText = Object.entries(quizData.hints).map(([k,v])=>`${k}: ${v}`).join("\n");
+    document.getElementById("quizSteps").innerText = `Step-by-Step Calculation:\n${stepsText}`;
+    document.getElementById("quizHints").innerText = `Hints:\n${hintsText}`;
+
+    document.getElementById("quizScore").innerText = `Score: ${score}`;
+}
+
+// Load first quiz automatically
+newQuiz();
+</script>
+
+</body>
+</html>

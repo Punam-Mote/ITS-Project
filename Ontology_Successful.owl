@@ -1,0 +1,431 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#"
+     xml:base="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#calculatesAount -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#calculatesAount">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Amount"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Amount"/>
+        <rdfs:comment>Formula produces Amount</rdfs:comment>
+        <rdfs:label>calculatesAmount</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#givesHint -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#givesHint">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint"/>
+        <rdfs:comment>Formula Produces Amount</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#usesCompounding -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#usesCompounding">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Compounding"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Compounding"/>
+        <rdfs:comment>Formula depends on n</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#usesPrincipal -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#usesPrincipal">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Formula"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Principal"/>
+        <rdfs:comment>Formula depends on P</rdfs:comment>
+        <rdfs:label>usesPrincipal</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#usesRate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#usesRate">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Formula"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10.0</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#usesTime -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#usesTime">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Formula"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Time"/>
+        <rdfs:comment>Formula depends on t</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#FormulaExpresion -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#FormulaExpresion">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Formula"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Store “A = P(1 + r/n)^(nt)”</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#hasHintText -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#hasHintText">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#FormulaExpresion"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#hasRateType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#hasRateType">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.4</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#hasValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#hasValue">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Amount"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Compounding"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Principal"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Time"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.3</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#unit -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#unit">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Principal"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Time"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Amount -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Amount">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#AnnualRate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#AnnualRate">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#CompoundInterestFormula -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#CompoundInterestFormula">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Formula"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Compounding -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Compounding">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#CompoundingHint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#CompoundingHint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Formula -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Formula">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment"/>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Principal -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Principal">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#PrincipalHint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#PrincipalHint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#RateHint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#RateHint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Time -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Time">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Investment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#TimeHint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#TimeHint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#amount_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#amount_1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Amount"/>
+        <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</hasValue>
+        <rdfs:comment>The final computed value</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#comp_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#comp_1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Compounding"/>
+        <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</hasValue>
+        <rdfs:comment>Stores compounding frequency</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#compound_hint1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#compound_hint1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#CompoundingHint"/>
+        <FormulaExpresion></FormulaExpresion>
+        <rdfs:comment>Feedback text for compoundInterest</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#formula_ci -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#formula_ci">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#CompoundInterestFormula"/>
+        <calculatesAount rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#amount_1"/>
+        <givesHint rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#principal_hint1"/>
+        <usesCompounding rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#comp_1"/>
+        <usesPrincipal rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#principal_1"/>
+        <usesRate rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#rate_1"/>
+        <usesTime rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#time_1"/>
+        <FormulaExpresion>&quot;A = P(1 + r/n)^(nt)&quot;</FormulaExpresion>
+        <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">101.0</hasValue>
+        <unit>Pound Sterling</unit>
+        <rdfs:comment>The main formula object</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#principal_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#principal_1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Principal"/>
+        <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1000.0</hasValue>
+        <rdfs:comment>Stores user&apos;s pricipal</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#principal_hint1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#principal_hint1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#PrincipalHint"/>
+        <hasValue></hasValue>
+        <rdfs:comment>Feedback text for principal</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#rate_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#rate_1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate"/>
+        <hasRateType rdf:datatype="http://www.w3.org/2001/XMLSchema#float">7.5</hasRateType>
+        <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.04</hasValue>
+        <rdfs:label>rate_1</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#rate_hint1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#rate_hint1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#RateHint"/>
+        <hasRateType></hasRateType>
+        <rdfs:comment>Feedback text for rate</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#time_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#time_1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Time"/>
+        <hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</hasValue>
+        <rdfs:comment>stores number of years</rdfs:comment>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#time_hint1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#time_hint1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#TimeHint"/>
+        <hasRateType></hasRateType>
+        <rdfs:comment>feedback text for time</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Amount"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Compounding"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Formula"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Hint"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Principal"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Rate"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#Time"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#CompoundingHint"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#PrincipalHint"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#RateHint"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/punammote_ysj/ontologies/2025/11/ITS_System#TimeHint"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
