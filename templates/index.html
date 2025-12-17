@@ -5,7 +5,7 @@
     <title>ITS – Intelligent Tutoring System</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Segoe UI, Roboto;
             background: #f0f4f8;
             text-align: center;
             margin: 0;
@@ -54,14 +54,39 @@
         }
         .correct { color: green; font-weight: bold; }
         .incorrect { color: red; font-weight: bold; }
-        hr { border: 0; border-top: 1px solid #ccc; margin: 10px 0; }
-        .section-title { font-weight:bold; margin-top:10px; }
+
+        .option-btn {
+            display:block;
+            width:95%;
+            text-align:left;
+        }
+
+        /* Modal popup */
+        .modal {
+            display:none;
+            position:fixed;
+            z-index:999;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background:white;
+            margin:15% auto;
+            padding:20px;
+            border-radius:10px;
+            max-width:400px;
+            text-align:left;
+        }
     </style>
 </head>
 <body>
 
 <header>ITS – Intelligent Tutoring System</header>
 
+<!-- Calculator -->
 <div class="container">
     <h2>Compound Interest Calculator</h2>
     <label for="principal">Principal (£):</label>
@@ -76,21 +101,39 @@
     <div id="calcResult" class="output-box"></div>
 </div>
 
+<!-- Quiz -->
 <div class="container">
-    <h2>Dynamic Quiz</h2>
+    <h2>Dynamic Quiz (MCQ)</h2>
+    <div id="quizProgress" class="output-box"></div>
+    <div id="difficultyLabel" class="output-box"></div>
     <div id="quizQuestion" class="output-box"></div>
-    <input id="quizAnswer" type="number" placeholder="Enter answer...">
+
+    <div id="optionsContainer"></div>
+
     <button onclick="checkQuiz()">Check Answer</button>
-    <button onclick="newQuiz()">New Question</button>
+    <button onclick="newQuiz()">Next Question</button>
+
     <div id="quizFeedback" class="output-box"></div>
     <div id="quizSteps" class="output-box"></div>
     <div id="quizHints" class="output-box"></div>
     <div id="quizScore" class="output-box">Score: 0</div>
 </div>
 
+<!-- Result Modal -->
+<div id="resultModal" class="modal">
+  <div class="modal-content">
+    <h3>Quiz Completed!</h3>
+    <p id="summaryText"></p>
+    <button onclick="restartQuiz()">Restart Quiz</button>
+  </div>
+</div>
+
 <script>
 let quizData = {};
 let score = 0;
+let selectedIndex = null;
+let questionNumber = 0;
+const MAX_QUESTIONS = 10;
 
 // ---------- Calculator ----------
 function calculate(){
@@ -112,47 +155,150 @@ function calculate(){
             return;
         }
         let stepsText = Object.values(res.steps).join("\n");
-        let hintsText = Object.entries(res.hints).map(([k,v])=>`${k}: ${v}`).join("\n");
-        document.getElementById("calcResult").innerText = 
-            `Final Amount: £${res.amount}\n\nStep-by-Step Calculation:\n${stepsText}\n\nHints:\n${hintsText}`;
+        let hintsText = Object.entries(res.hints)
+                              .map(([k,v]) => `${k}: ${v}`)
+                              .join("\n");
+        document.getElementById("calcResult").innerText =
+            `Final Amount: £${res.amount}\n\n` +
+            `Step-by-Step Calculation:\n${stepsText}\n\n` +
+            `Hints:\n${hintsText}`;
     });
 }
 
 // ---------- Quiz ----------
 function newQuiz(){
+    if(questionNumber >= MAX_QUESTIONS){
+        showSummary();
+        return;
+    }
+
     fetch("/quiz")
     .then(response => response.json())
     .then(res => {
         quizData = res;
+        selectedIndex = null;
+        questionNumber += 1;
+
+        document.getElementById("quizProgress").innerText =
+            `Question ${questionNumber} of ${MAX_QUESTIONS}`;
+
+        document.getElementById("difficultyLabel").innerText =
+            "Difficulty: " + res.difficulty;
+
         document.getElementById("quizQuestion").innerText = res.question;
-        document.getElementById("quizAnswer").value = "";
+
         document.getElementById("quizFeedback").innerText = "";
         document.getElementById("quizSteps").innerText = "";
         document.getElementById("quizHints").innerText = "";
+
+        // Render MCQ options
+        let optionsDiv = document.getElementById("optionsContainer");
+        optionsDiv.innerHTML = "";
+        res.options.forEach((opt, idx) => {
+            let btn = document.createElement("button");
+            btn.className = "option-btn";
+            btn.innerText = String.fromCharCode(65 + idx) + ") £" + opt;
+            btn.onclick = () => selectOption(idx);
+            optionsDiv.appendChild(btn);
+        });
+    });
+}
+
+function selectOption(idx){
+    selectedIndex = idx;
+    let buttons = document.querySelectorAll("#optionsContainer .option-btn");
+    buttons.forEach((b, i) => {
+        b.style.background = (i === idx) ? "#182848" : "#4b6cb7";
     });
 }
 
 function checkQuiz(){
-    let user = parseFloat(document.getElementById("quizAnswer").value);
-    if(isNaN(user)){
-        document.getElementById("quizFeedback").innerText = "Please enter a number.";
+    if(!quizData || quizData.options === undefined){
+        document.getElementById("quizFeedback").innerText =
+            "Click 'Next Question' to get a quiz first.";
+        return;
+    }
+    if(selectedIndex === null){
+        document.getElementById("quizFeedback").innerText =
+            "Please select an option.";
         return;
     }
 
+    let correct = (selectedIndex === quizData.correct_index);
     let feedbackBox = document.getElementById("quizFeedback");
-    if(Math.abs(user - quizData.answer) < 0.01){
+
+    if(correct){
         feedbackBox.innerHTML = "<span class='correct'>Correct!</span>";
         score += 1;
     } else {
-        feedbackBox.innerHTML = `<span class='incorrect'>Incorrect.</span> Correct Answer: £${quizData.answer}`;
+        let correctAmount = quizData.options[quizData.correct_index];
+        feedbackBox.innerHTML =
+            `<span class='incorrect'>Incorrect.</span> ` +
+            `Correct Answer: £${correctAmount}`;
     }
 
-    let stepsText = Object.values(quizData.steps).join("\n");
-    let hintsText = Object.entries(quizData.hints).map(([k,v])=>`${k}: ${v}`).join("\n");
-    document.getElementById("quizSteps").innerText = `Step-by-Step Calculation:\n${stepsText}`;
-    document.getElementById("quizHints").innerText = `Hints:\n${hintsText}`;
+    document.getElementById("quizScore").innerText = "Score: " + score;
 
-    document.getElementById("quizScore").innerText = `Score: ${score}`;
+    // Show detailed steps & hints
+    let stepsText = Object.values(quizData.steps).join("\n");
+    let hintsText = Object.entries(quizData.hints)
+                          .map(([k,v]) => `${k}: ${v}`)
+                          .join("\n");
+    document.getElementById("quizSteps").innerText =
+        "Step-by-Step Calculation:\n" + stepsText;
+    document.getElementById("quizHints").innerText =
+        "Hints:\n" + hintsText;
+
+    // Update difficulty on server
+    fetch("/update_difficulty", {
+        method:"POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ correct: correct })
+    })
+    .then(res => res.json())
+    .then(res => {
+        document.getElementById("difficultyLabel").innerText =
+            "Difficulty: " + res.difficulty_label;
+    });
+
+    // If this was the last question, show summary
+    if(questionNumber >= MAX_QUESTIONS){
+        showSummary();
+    }
+}
+
+function showSummary(){
+    let accuracy = (score / MAX_QUESTIONS) * 100;
+    let feedback;
+    if(accuracy >= 80){
+        feedback = "Excellent! You have a strong understanding of compound interest.";
+    } else if(accuracy >= 50){
+        feedback = "Good effort. Revise medium and hard questions to improve further.";
+    } else {
+        feedback = "You may need more practice with the basics. Focus on principal, rate, and compounding.";
+    }
+
+    let summaryText =
+        `Score: ${score} / ${MAX_QUESTIONS}\n` +
+        `Accuracy: ${accuracy.toFixed(1)}%\n\n` +
+        `Feedback:\n${feedback}`;
+
+    document.getElementById("summaryText").innerText = summaryText;
+    document.getElementById("resultModal").style.display = "block";
+}
+
+function restartQuiz(){
+    score = 0;
+    questionNumber = 0;
+    document.getElementById("quizScore").innerText = "Score: 0";
+    document.getElementById("quizProgress").innerText = "";
+    document.getElementById("quizQuestion").innerText = "";
+    document.getElementById("quizFeedback").innerText = "";
+    document.getElementById("quizSteps").innerText = "";
+    document.getElementById("quizHints").innerText = "";
+    document.getElementById("optionsContainer").innerHTML = "";
+    document.getElementById("resultModal").style.display = "none";
+    newQuiz();
 }
 
 // Load first quiz automatically
